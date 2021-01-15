@@ -1,0 +1,10 @@
+The Queue has been implemented as a ring buffer, using a doubly-linked list.
+Since Node.js abstracts away the real underlying structures, there is simply an iterator that is the only index into
+the ring.  New objects are pushed to the position just before the iterator.
+The Queue is designed to hold the name of exploit scripts that the engine will attempt, and each script has a time
+associated with it.  Thus, each element of the queue is an object with a 1) string that is the name of the queue to try
+and 2) a standard JavaScript Date object of when to try the script.
+When an object is popped from the Queue, the iterator will move around the ring, looking for the next object with a time
+less than the current time.  Once it finds one, it will remove the object from the ring and return the string name of
+the script associated with that object.  If the iterator traverses the entire ring, then it returns symbols.noScript to
+alert the caller that there is no valid script to run.
