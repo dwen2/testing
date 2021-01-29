@@ -21,24 +21,27 @@ global.queueDebugFlag = false;
 global.targets = [];
 
 
-
 require('./Initialization/init')(); // Initialize the system.
 
 
-
 const symbols = require('./symbols');
-const exploiter = require('./Exploiter/exploiter');
+const exploiter = require('./Exploiter/newExploiter');
 
 
 while (1)
 {
+   //console.log("start of while loop");
    let exp = queue.pop();
    if (exp != symbols.noScript)
    {
+      console.log("inside main while loop");
+
       let expRet = exploiter(exp);
       // Do something with the return object
+      break;
    }
    // sleep(1);
+
 }
 
 

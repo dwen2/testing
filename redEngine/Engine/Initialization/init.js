@@ -38,10 +38,11 @@ function init()
       global.targets.push(targObj);
    }
 
-   console.log("INFO: Initializing Red Team in " + process.env.difficulty + " Mode.  " + new Date(Date.now()).toLocaleString());
+   //console.log("INFO: Initializing Red Team in " + process.env.difficulty + " Mode.  " + new Date(Date.now()).toLocaleString());
+   console.log("INFO: Initializing Red Team in Easy Mode. " + new Date(Date.now()).toLocaleString());
 
    // Set the difficulty of the event based on the Terraform configuration.
-   switch (process.env.difficulty)
+   switch ("Easy")
    {
       case "PWN":
       {
@@ -57,6 +58,33 @@ function init()
       }
       case "Easy":
       {
+        /*var childProcess = require('child_process');
+
+        function runScript(scriptPath, callBack) {
+          var invoked = false;
+
+          var process = childProcess.fork(scriptPath);
+
+          process.on('error', function (err) {
+            if (invoked) return;
+            invoked = true;
+            callback(err);
+          });
+
+          // execute the callback once the process has finished running
+          process.on('exit', function (code) {
+            if (invoked) return;
+            invoked = true;
+            var err = code === 0 ? null : new Error('exit code ' + code);
+            callback(err);
+          });
+        }
+
+        runScript('../../Exploits/nmapJS.JS', function (err) {
+          if (err) throw err;
+          console.log('Finished running nmap');
+        });*/
+
          let iTargs = 0;
          let tarLen = global.targets.length;
          for (; iTargs < tarLen; ++iTargs)
@@ -65,19 +93,20 @@ function init()
             let expObj =
             {
                targetObj : global.targets[iTargs],
-               env : symbols.pythonEnv,
+               env : symbols.nodeEnv,
                type : symbols.scanType,
                target : symbols.genericTarget,
-               name : "nmapScan.py"
+               name : "nmapJS.js"
             };
 
             // Push the finished exploit object to the queue, t = 5 min from now.
-            let date = new Date(Date.now() + 300000); // 300000 is in milliseconds; five minutes.
+            let date = new Date(Date.now() + 3000); // 300000 is in milliseconds; five minutes.
             global.queue.push(expObj, date);
-            console.log("  '--> Pushed NMAP scan on IP " + global.targets[iTargs].ip +
-                        " for time " + date.toLocaleString());
+            console.log("--> Deployed attacking script \'" + expObj.name + "\' on IP \'" + global.targets[iTargs].ip +
+                        "\' for time " + date.toLocaleString() + "\' in 3 sec\' <--");
          }
          break;
+
       }
       default:
       {
@@ -88,5 +117,5 @@ function init()
 
    console.log("///// FINISHED RED TEAM INITIALIZATION /////");
 }
-
+console.log("start of initialization code");
 module.exports = init;

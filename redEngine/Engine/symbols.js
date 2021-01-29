@@ -1,4 +1,4 @@
-
+console.log("inside symbols js")
 exports.noScript = Symbol('NoScript');
 
 

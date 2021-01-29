@@ -19,12 +19,15 @@
 *******************************************************************************/
 function push(scriptName, execTime)
 {
+   console.log("inside push function");
+
+
    if (!scriptName || !execTime)
    {
       console.log("Empty parameter sent to queue push function!!");
       // throw "QUEUE_EMPTY_PUSH_PARAMETER_ERROR";  // TODO
    }
-   
+
    /// Future planning: we could also add a type to each object, which would
    /// allow us to have different types of objects in the queue.
    let obj =
@@ -32,13 +35,15 @@ function push(scriptName, execTime)
          script: scriptName,
          time: execTime
       };
-   
+   console.log("declare obj");
    if (queue.length === 0) // No objects in the queue.
    {
+      console.log("queue is empty; add following obj");
+      console.log(obj.script);
       obj.prev = obj;
       obj.next = obj;
       queue.iter = obj;
-      
+
    }
    // Somehow something got out of whack; this is a major error!!
    else if (queue.iter === null)
@@ -48,14 +53,16 @@ function push(scriptName, execTime)
    }
    else // Push the object to the position just before the iterator, i.e. the "end" of the queue.
    {
+      console.log("push obj to iterator");
       obj.next = queue.iter;
       obj.prev = queue.iter.prev;
       queue.iter.prev = obj;
       obj.prev.next = obj;
    }
-   
+
    ++queue.length; // The queue size just got bigger!
-   
+   console.log("queue length ++");
+
    if (queueDebugFlag) // Log it out if the flag is set.
    {
       console.log("Queue added:   Script - " + obj.script + "   Time - " + obj.time);
