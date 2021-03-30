@@ -1,7 +1,6 @@
 console.log("inside symbols js")
 exports.noScript = Symbol('NoScript');
 
-
 /// Exploit environment types ///
 exports.pythonEnv = Symbol("Python");
 exports.nodeEnv = Symbol("Node");

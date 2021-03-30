@@ -19,11 +19,8 @@ global.queueDebugFlag = false;
 // ip - The IP address of the target
 //
 global.targets = [];
-
-
+console.log("Start main");
 require('./Initialization/init')(); // Initialize the system.
-
-
 const symbols = require('./symbols');
 const exploiter = require('./Exploiter/newExploiter');
 

@@ -19,7 +19,7 @@
 *******************************************************************************/
 function push(scriptName, execTime)
 {
-   console.log("inside push function");
+   //console.log("inside push function");
 
 
    if (!scriptName || !execTime)
